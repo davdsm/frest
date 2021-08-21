@@ -1,17 +1,17 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Pressable } from "react-native";
 
-export const WelcomeText = () => {
+export const WelcomeText = ({ title, text, buttonText, buttonAction }) => {
   return (
     <View style={styles.container}>
       <View style={styles.box}>
-        <Text style={styles.title}>
-          Ainda não sabes o que vais fazer agora?
-        </Text>
-        <Text style={styles.subtitle}>
-          Vais descobrir o que cozinhar em menos de 3 minutos com o que já tens
-          no teu frigorifico. Preenche o formulário e deixa a magia acontecer.
-        </Text>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.subtitle}>{text}</Text>
+      </View>
+      <View style={styles.buttons}>
+        <Pressable style={styles.button} onPress={buttonAction}>
+          <Text style={styles.buttonText}>{buttonText}</Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -23,17 +23,17 @@ const styles = StyleSheet.create({
     position: "relative",
     height: "100%",
     width: "100%",
-    margin: 45,
+    overflow: "hidden",
   },
   box: {
     position: "absolute",
-    bottom: 74,
+    bottom: 130,
     width: "100%",
   },
   title: {
     fontSize: 30,
     color: "#fff",
-    width: "60%",
+    width: "65%",
   },
   subtitle: {
     fontSize: 20,
@@ -41,6 +41,44 @@ const styles = StyleSheet.create({
     width: "70%",
     marginTop: 30,
     marginBottom: 48,
+  },
+  buttons: {
+    position: "absolute",
+    bottom: 74,
+    left: 0,
+    right: 90,
+  },
+  button: {
+    height: 52,
+    color: "#000",
+    width: "100%",
+    backgroundColor: "#fff",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 10,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: "#fff",
+  },
+  buttonText: {
+    color: "#5EBDD6",
+    fontSize: 15,
+  },
+  borderButton: {
+    height: 52,
+    color: "#000",
+    width: "100%",
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: "#fff",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonBorderText: {
+    color: "#fff",
+    fontSize: 15,
   },
 });
 

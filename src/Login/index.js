@@ -1,19 +1,58 @@
-import React from "react";
-import { Text, View, StyleSheet, ImageBackground } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  StyleSheet,
+  ImageBackground,
+  Image,
+  StatusBar
+} from "react-native";
 import image from "../../assets/images/fundo-welcome.png";
+import logo from "../../assets/logo.png";
 import Step1 from "../Welcome/1";
+import Step2 from "../Welcome/2";
+import Step3 from "../Welcome/3";
+import Step4 from "../Welcome/4";
 
 export const Login = () => {
+  const [step, setStep] = useState(0);
+
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={image}
-        resizeMode="cover"
-        style={styles.background}
-      >
-        <Step1 />
-      </ImageBackground>
-    </View>
+    <>
+      {step === 0 && (
+        <ImageBackground
+          source={image}
+          resizeMode="cover"
+          style={styles.background}
+        >
+          <View style={styles.container}>
+            <Image style={styles.logo} source={logo} />
+            <Step1 setStep={() => setStep(1)} />
+          </View>
+        </ImageBackground>
+      )}
+      {step === 1 && (
+        <View style={styles.colorContainer}>
+          <Step2 setStep={() => setStep(3)} />
+        </View>
+      )}
+      {step === 2 && (
+        <ImageBackground
+          source={image}
+          resizeMode="cover"
+          style={styles.background}
+        >
+          <View style={styles.container}>
+            <Image style={styles.logo} source={logo} />
+            <Step3 setStep={() => setStep(3)} />
+          </View>
+        </ImageBackground>
+      )}
+      {step === 3 && (
+        <View style={styles.colorContainer}>
+          <Step4 />
+        </View>
+      )}
+    </>
   );
 };
 
@@ -21,10 +60,23 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: "100%",
+    margin: 45,
+  },
+  colorContainer: {
+    backgroundColor: "#fff",
+    paddingTop: StatusBar.currentHeight,
+    paddingLeft: 45,
+    paddingRight: 45,
   },
   background: {
     width: "100%",
     height: "100%",
+  },
+  logo: {
+    width: 130,
+    height: 37,
+    marginTop: 50,
+    marginBottom: -100,
   },
 });
 
