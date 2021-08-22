@@ -5,7 +5,7 @@ import Ingredient from "../Ingredient";
 import Searchbar from "../Searchbar";
 import Button from "../Button";
 
-export const Fridge = ({ SearchText, setSearchText, list }) => {
+export const Fridge = ({ SearchText, setSearchText, list, goNext }) => {
   const [Ingredients, setIngredients] = useState([]);
   const [SelectedIngredients, setSelectedIngredients] = useState([]);
 
@@ -53,11 +53,7 @@ export const Fridge = ({ SearchText, setSearchText, list }) => {
       )}
       {SelectedIngredients.length > 0 && (
         <View style={styles.flyingButton}>
-          <Button
-            label="Continuar"
-            action={() => alert("not yet baby")}
-            icon="rowing"
-          />
+          <Button label="Continuar" action={goNext} icon="rowing" />
         </View>
       )}
     </View>

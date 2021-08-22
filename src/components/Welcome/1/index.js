@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
-import WelcomeText from "../../components/WelcomeText";
+import WelcomeText from "../../WelcomeText";
 
 export const Welcome = ({ setStep }) => {
   return (

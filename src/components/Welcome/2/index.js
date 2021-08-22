@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Text, View, StyleSheet, TextInput } from "react-native";
-import Button from "../../components/Button";
-import Entrance from "../../components/Entrance/";
+import Button from "../../Button";
+import Entrance from "../../Entrance/";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const Step2 = ({ setStep }) => {

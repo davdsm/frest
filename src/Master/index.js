@@ -2,19 +2,15 @@ import React from "react";
 import { Text, View } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
-const Stack = createNativeStackNavigator();
 
 const checkLogin = async (navigation) => {
   try {
     const user = await AsyncStorage.getItem("user_name");
     if (user !== null) {
-      // aqui
+      /* // to logout
       const remove = await AsyncStorage.removeItem("user_name");
-      navigation.navigate("Login");
-      // aqui
-      
+      navigation.navigate("Login"); */
+
       return true;
     } else {
       navigation.navigate("Login");

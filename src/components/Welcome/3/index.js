@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Image } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import WelcomeImage from "../../../assets/images/fridge-success.png";
+import WelcomeImage from "../../../../assets/images/fridge-success.png";
 
-import WelcomeText from "../../components/WelcomeText";
-import Entrance from "../../components/Entrance";
+import WelcomeText from "../../WelcomeText";
+import Entrance from "../../Entrance";
 
 export const Step3 = ({ setStep }) => {
   const [Name, setName] = useState("");

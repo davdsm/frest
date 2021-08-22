@@ -8,12 +8,12 @@ import {
 } from "react-native";
 import image from "../../assets/images/fundo-welcome.png";
 import logo from "../../assets/logo.png";
-import Step1 from "../Welcome/1";
-import Step2 from "../Welcome/2";
-import Step3 from "../Welcome/3";
-import Step4 from "../Welcome/4";
+import Step1 from "../components/Welcome/1";
+import Step2 from "../components/Welcome/2";
+import Step3 from "../components/Welcome/3";
+import Step4 from "../components/Welcome/4";
 
-export const Login = () => {
+export const Login = ({ navigation }) => {
   const [step, setStep] = useState(0);
 
   return (
@@ -32,7 +32,7 @@ export const Login = () => {
       )}
       {step === 1 && (
         <View style={styles.colorContainer}>
-          <Step2 setStep={() => setStep(3)} />
+          <Step2 setStep={() => setStep(2)} />
         </View>
       )}
       {step === 2 && (
@@ -49,7 +49,7 @@ export const Login = () => {
       )}
       {step === 3 && (
         <View style={styles.colorContainer}>
-          <Step4 />
+          <Step4 goNext={() => navigation.navigate("Dashboard")} />
         </View>
       )}
     </>

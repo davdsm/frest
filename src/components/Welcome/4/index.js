@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Image, Text, ScrollView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Logo from "../../../assets/logo.png";
-import Entrance from "../../components/Entrance";
-import Fridge from "../../components/Fridge";
-import { getIngredients } from "../../redux/actions";
+import Logo from "../../../../assets/logo.png";
+import Entrance from "../../Entrance";
+import Fridge from "../../Fridge";
+import { getIngredients } from "../../../redux/actions";
 
-export const Step4 = () => {
+export const Step4 = ({ goNext }) => {
   const [SearchText, setSearchText] = useState("");
   const [Ingredients, setIngredients] = useState([]);
 
@@ -32,6 +32,7 @@ export const Step4 = () => {
         {Ingredients.length > 0 && (
           <Entrance>
             <Fridge
+              action={goNext}
               SearchText={SearchText}
               setSearchText={setSearchText}
               list={Ingredients}
