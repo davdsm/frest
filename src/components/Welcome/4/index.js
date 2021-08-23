@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Image, Text, ScrollView } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import Logo from "../../../../assets/logo.png";
 import Entrance from "../../Entrance";
 import Fridge from "../../Fridge";

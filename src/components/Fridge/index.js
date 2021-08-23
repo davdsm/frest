@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { View, StyleSheet } from "react-native";
 import Entrance from "../Entrance";
 import Ingredient from "../Ingredient";
 import Searchbar from "../Searchbar";
 import Button from "../Button";
+import { setFridge } from "../../redux/actions";
 
-export const Fridge = ({ SearchText, setSearchText, list, goNext }) => {
+export const Fridge = ({ SearchText, setSearchText, list, action }) => {
   const [Ingredients, setIngredients] = useState([]);
   const [SelectedIngredients, setSelectedIngredients] = useState([]);
 
@@ -17,6 +19,11 @@ export const Fridge = ({ SearchText, setSearchText, list, goNext }) => {
       _v.splice(SelectedIngredients.indexOf(ingredient_id), 1);
     }
     setSelectedIngredients(_v);
+  };
+
+  const handleSubmit = async () => {
+    await setFridge(SelectedIngredients);
+    action();
   };
 
   useEffect(() => {
@@ -53,7 +60,7 @@ export const Fridge = ({ SearchText, setSearchText, list, goNext }) => {
       )}
       {SelectedIngredients.length > 0 && (
         <View style={styles.flyingButton}>
-          <Button label="Continuar" action={goNext} icon="rowing" />
+          <Button label="Continuar" action={handleSubmit} icon="rowing" />
         </View>
       )}
     </View>

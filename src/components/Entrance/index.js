@@ -3,12 +3,12 @@ import { Animated } from "react-native";
 
 export const Entrance = (props) => {
   const fadeAnim = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
-  const moveAnim = useRef(new Animated.Value(50)).current; // Initial value for opacity: 0
+  const moveAnim = useRef(new Animated.Value(10)).current; // Initial value for opacity: 0
 
   useEffect(() => {
     Animated.timing(fadeAnim, {
       toValue: 1,
-      duration: 700,
+      duration: 500,
       useNativeDriver: false, // Add This line
     }).start();
   }, [fadeAnim]);
@@ -16,7 +16,7 @@ export const Entrance = (props) => {
   useEffect(() => {
     Animated.timing(moveAnim, {
       toValue: 0,
-      duration: 700,
+      duration: 500,
       useNativeDriver: false, // Add This line
     }).start();
   }, [moveAnim]);

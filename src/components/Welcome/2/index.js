@@ -20,13 +20,17 @@ export const Step2 = ({ setStep }) => {
           style={styles.input}
           onChangeText={(v) => setName(v)}
           value={Name}
-          placeholder="Carla Alexandra..."
+          placeholder="Rogelio de la Vega"
         />
 
         {Name.length > 2 && (
           <View style={styles.button}>
             <Entrance style={styles.box}>
-              <Button label="Continuar" action={handleSuccess} icon="chevron-right" />
+              <Button
+                label="Continuar"
+                action={handleSuccess}
+                icon="chevron-right"
+              />
             </Entrance>
           </View>
         )}

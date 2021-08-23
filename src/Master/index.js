@@ -1,35 +1,64 @@
-import React from "react";
-import { Text, View } from "react-native";
-
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-const checkLogin = async (navigation) => {
-  try {
-    const user = await AsyncStorage.getItem("user_name");
-    if (user !== null) {
-      /* // to logout
-      const remove = await AsyncStorage.removeItem("user_name");
-      navigation.navigate("Login"); */
-
-      return true;
-    } else {
-      navigation.navigate("Login");
-    }
-  } catch (e) {
-    console.log(e);
-    navigation.navigate("Login");
-  }
-};
+import React, { useState, useEffect } from "react";
+import { Text, View, StyleSheet } from "react-native";
+import Layout from "../components/Layout";
+import Categories from "../components/Categories";
+import {
+  getCategories,
+  getFridge,
+  getRandomMeal,
+  getUserName,
+} from "../redux/actions";
+import RandomMeal from "../components/RandomMeal";
 
 export const Master = ({ navigation }) => {
-  // check login
-  checkLogin(navigation);
+  const [Name, setName] = useState("");
+  const [Cats, setCats] = useState([]);
+  const [Fridge, setFridge] = useState([]);
+  const [Meal, setMeal] = useState(false);
+
+  const getName = async () => {
+    const username = await getUserName();
+    setName(username);
+  };
+
+  useEffect(() => {
+    if (!Name) {
+      getName();
+    }
+    if (Cats.length === 0) {
+      getCategories((v) => setCats(v));
+    }
+    if (Fridge.length === 0) {
+      getFridge((v) => setFridge(v));
+    }
+    if (!Meal) {
+      getRandomMeal(Fridge, (v) => setMeal(v.meals));
+    }
+  }, []);
 
   return (
-    <View>
-      <Text>Application</Text>
-    </View>
+    <Layout navigation={navigation}>
+      {Cats.length > 0 && Name.length > 0 && Fridge.length > 0 && (
+        <>
+          <Text style={styles.title}>Olá {Name}! 👋</Text>
+          <Text style={styles.title}>O que estás à procura hoje? 🔥</Text>
+          <Categories obj={Cats} />
+          <RandomMeal meals={Meal} />
+        </>
+      )}
+    </Layout>
   );
 };
+
+const styles = StyleSheet.create({
+  layout: {},
+  title: {
+    fontSize: 25,
+    fontWeight: "bold",
+    marginBottom: 25,
+    marginLeft: 45,
+    marginRight: 45,
+  },
+});
 
 export default Master;

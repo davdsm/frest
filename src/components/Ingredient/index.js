@@ -56,7 +56,6 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 14,
     color: "#272727",
-    fontWeight: "bold",
     marginLeft: 12,
   },
   checkSquare: {

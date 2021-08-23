@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
   ImageBackground,
   Image,
-  StatusBar
+  StatusBar,
 } from "react-native";
 import image from "../../assets/images/fundo-welcome.png";
 import logo from "../../assets/logo.png";
@@ -15,6 +15,10 @@ import Step4 from "../components/Welcome/4";
 
 export const Login = ({ navigation }) => {
   const [step, setStep] = useState(0);
+
+  const handleGoNext = () => {
+    navigation.navigate("Home");
+  };
 
   return (
     <>
@@ -49,7 +53,7 @@ export const Login = ({ navigation }) => {
       )}
       {step === 3 && (
         <View style={styles.colorContainer}>
-          <Step4 goNext={() => navigation.navigate("Dashboard")} />
+          <Step4 goNext={handleGoNext} />
         </View>
       )}
     </>
