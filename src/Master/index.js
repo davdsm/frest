@@ -43,7 +43,7 @@ export const Master = ({ navigation }) => {
           <Text style={styles.title}>Olá {Name}! 👋</Text>
           <Text style={styles.title}>O que estás à procura hoje? 🔥</Text>
           <Categories obj={Cats} />
-          <RandomMeal meals={Meal} />
+          <RandomMeal meals={Meal} navigation={navigation} />
         </>
       )}
     </Layout>

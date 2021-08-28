@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Master from "./src/Master";
 import Login from "./src/Login";
+import Meal from "./src/Meal";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -28,6 +29,7 @@ export default function App() {
         >
           <Stack.Screen name="Dashboard" component={TabStack} />
           <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Meal" component={Meal} />
         </Stack.Navigator>
       </NavigationContainer>
       <StatusBar style="auto" />

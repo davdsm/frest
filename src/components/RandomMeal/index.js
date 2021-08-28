@@ -12,7 +12,7 @@ import Entrance from "../Entrance";
 
 const windowWidth = Dimensions.get("window").width - 90;
 
-export const RandomMeal = ({ meals }) => {
+export const RandomMeal = ({ meals, navigation }) => {
   return (
     <View style={styles.main}>
       <Entrance>
@@ -28,15 +28,26 @@ export const RandomMeal = ({ meals }) => {
         >
           {meals.length > 0 &&
             meals.map((item, i) => (
-              <TouchableOpacity key={i} style={styles.meal}>
-                <ImageBackground
-                  source={{ uri: item.strMealThumb }}
-                  imageStyle={{ borderRadius: 6 }}
-                  resizeMode="cover"
-                  style={styles.background}
-                >
-                  <Text>Ola</Text>
-                </ImageBackground>
+              <TouchableOpacity
+                key={i}
+                style={styles.meal}
+                onPress={() =>
+                  navigation.navigate(`Meal`, {
+                    mealId: item.idMeal,
+                  })
+                }
+              >
+                <Entrance>
+                  <ImageBackground
+                    source={{ uri: item.strMealThumb }}
+                    imageStyle={{ borderRadius: 6 }}
+                    resizeMode="cover"
+                    style={styles.background}
+                  >
+                    <View style={styles.shade}></View>
+                    <Text style={styles.mealTitle}>{item.strMeal}</Text>
+                  </ImageBackground>
+                </Entrance>
               </TouchableOpacity>
             ))}
         </ScrollView>
@@ -57,6 +68,18 @@ const styles = StyleSheet.create({
     height: "100%",
     borderRadius: 6,
   },
+  shade: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: windowWidth,
+    height: 280,
+    borderRadius: 6,
+    marginBottom: 100,
+    marginRight: 30,
+    backgroundColor: "#0A0032",
+    opacity: 0.4,
+  },
   row: {
     position: "relative",
   },
@@ -71,7 +94,14 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     position: "relative",
     marginBottom: 100,
-    marginRight: 30
+    marginRight: 30,
+  },
+  mealTitle: {
+    position: "absolute",
+    color: "white",
+    padding: 30,
+    fontSize: 20,
+    bottom: 0,
   },
 });
 

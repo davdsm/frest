@@ -1,8 +1,16 @@
 import React from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { View, Image, StyleSheet, StatusBar, ScrollView } from "react-native";
+import {
+  View,
+  Image,
+  StyleSheet,
+  StatusBar,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import Logo from "../../../assets/logo.png";
 import Entrance from "../Entrance";
+import { Icon } from "react-native-elements/dist/icons/Icon";
 
 const checkLogin = async (navigation) => {
   try {
@@ -21,16 +29,30 @@ const checkLogin = async (navigation) => {
   }
 };
 
-export const Layout = ({ children, navigation }) => {
+export const Layout = ({ children, navigation, layout, mealId }) => {
   // check login
   checkLogin(navigation);
 
   return (
     <ScrollView style={styles.layout} horizontal={false} verticak={true}>
       <View style={styles.header}>
-        <Entrance>
-          <Image source={Logo} style={styles.logo} />
-        </Entrance>
+        {layout !== "minimal" && (
+          <Entrance>
+            <Image source={Logo} style={styles.logo} />
+          </Entrance>
+        )}
+        {layout === "minimal" && (
+          <Entrance>
+            <View style={styles.iconsHeader}>
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <Icon style={styles.icon} name="chevron-left" />
+              </TouchableOpacity>
+              {/* <TouchableOpacity>
+                <Icon style={styles.icon} name="favorite" />
+              </TouchableOpacity> */}
+            </View>
+          </Entrance>
+        )}
       </View>
       <Entrance>{children}</Entrance>
     </ScrollView>
@@ -54,6 +76,14 @@ const styles = StyleSheet.create({
     height: 77,
     paddingLeft: 45,
     paddingRight: 45,
+  },
+  iconsHeader: {
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+  },
+  icon: {
+    fontSize: 50,
   },
 });
 

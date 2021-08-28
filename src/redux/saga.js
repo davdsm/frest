@@ -10,13 +10,21 @@ export const realGetCategories = async (callback) => {
 };
 
 export const realGetRandomMeal = async (callback) => {
-  /* const url = `https://www.themealdb.com/api/json/v2/9973533/filter.php?i=chicken_breast,garlic,salt`; */
   const url = `https://www.themealdb.com/api/json/v1/1/random.php`;
-  /* const url = `https://www.themealdb.com/api/json/v1/1/search.php?f=a`; */
 
   fetch(url)
     .then((response) => response.json())
     .then((json) => callback(json))
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+export const realGetMeal = async (mealId, callback) => {
+  const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`;
+  fetch(url)
+    .then((response) => response.json())
+    .then((json) => callback(json.meals[0]))
     .catch((error) => {
       console.error(error);
     });

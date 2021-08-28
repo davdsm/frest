@@ -3,6 +3,7 @@ import {
   realGetIngredients,
   realGetCategories,
   realGetRandomMeal,
+  realGetMeal,
 } from "./saga";
 
 let ingredients = false;
@@ -55,6 +56,10 @@ export const getCategories = (callback) => {
 
 export const getRandomMeal = (fridge, callback) => {
   realGetRandomMeal(callback);
+};
+
+export const getMeal = (mealId, callback) => {
+  realGetMeal(mealId, callback);
 };
 
 export default getIngredients;
