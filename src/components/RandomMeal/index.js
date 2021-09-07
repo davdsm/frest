@@ -37,7 +37,7 @@ export const RandomMeal = ({ meals, navigation }) => {
                   })
                 }
               >
-                <Entrance>
+                <Entrance style={{height: "100%"}}>
                   <ImageBackground
                     source={{ uri: item.strMealThumb }}
                     imageStyle={{ borderRadius: 6 }}

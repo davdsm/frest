@@ -6,6 +6,9 @@ import {
   ImageBackground,
   Dimensions,
   TouchableOpacity,
+  FlatList,
+  Image,
+  ScrollView,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import Entrance from "../components/Entrance";
@@ -24,7 +27,40 @@ export const Meal = ({ navigation, route }) => {
     }
   }, [MealInfo]);
 
-  console.log(MealInfo);
+  const getIngredients = (type) => {
+    let v = 0;
+    let _ingredients = [];
+    switch (type) {
+      case "number":
+        for (let index = 1; index < 21; index++) {
+          const element = MealInfo[`strIngredient${index}`];
+          if (element) {
+            _ingredients.push(element);
+          }
+        }
+        v = _ingredients.length;
+        break;
+      case "info":
+        for (let index = 1; index < 21; index++) {
+          const element = MealInfo[`strIngredient${index}`];
+          if (element) {
+            _ingredients.push({
+              id: index,
+              ing: MealInfo[`strIngredient${index}`],
+              dose: MealInfo[`strMeasure${index}`],
+            });
+          }
+        }
+
+        v = _ingredients;
+
+        break;
+
+      default:
+        break;
+    }
+    return v;
+  };
 
   return (
     <>
@@ -45,7 +81,7 @@ export const Meal = ({ navigation, route }) => {
             </View>
             <Text style={styles.title}>🍽 {MealInfo.strMeal}</Text>
             <View style={styles.video}>
-              <TouchableOpacity onPress={() => alert("go to youtube video")}>
+              <TouchableOpacity onPress={() => alert(MealInfo.strYoutube)}>
                 <Entrance>
                   <ImageBackground
                     source={{ uri: MealInfo.strMealThumb }}
@@ -67,10 +103,42 @@ export const Meal = ({ navigation, route }) => {
             </View>
             <View style={styles.intro}>
               <Text style={styles.mealTitle}>Ingredientes</Text>
-              <Text style={styles.mealItems}>10 items</Text>
+              <Text style={styles.mealItems}>
+                {getIngredients("number")} items
+              </Text>
             </View>
 
-            <View style={styles.ingredients}></View>
+            <View style={styles.ingredients}>
+              <ScrollView horizontal={true} style={{ width: "100%", flex: 1 }}>
+                <FlatList
+                  contentContainerStyle={{ width: "100%", flex: 1 }}
+                  data={getIngredients("info")}
+                  style={styles.ingList}
+                  renderItem={({ item }) => (
+                    <View style={styles.item} key={item.id}>
+                      <Image
+                        style={styles.ingImage}
+                        source={{
+                          uri: `https://www.themealdb.com/images/ingredients/${item.ing}-Small.png`,
+                        }}
+                      />
+                      <Text style={styles.ingInfo}>
+                        <Text style={styles.ingName}>{item.ing}</Text>
+                        <Text style={styles.qty}>{item.dose}</Text>
+                      </Text>
+                    </View>
+                  )}
+                />
+              </ScrollView>
+            </View>
+
+            <View style={styles.doIt}>
+              <Text style={styles.mealTitle}>Vamos fazer 🔥</Text>
+              <Text style={styles.mealItems}>
+                <Icon name="play-circle-outline" color="#00a0df" size={30} />
+              </Text>
+            </View>
+            <Text style={styles.mainMealInfo}>{MealInfo.strInstructions}</Text>
           </View>
         </Layout>
       )}
@@ -79,6 +147,59 @@ export const Meal = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
+  mainMealInfo: {
+    marginTop: 20,
+    fontSize: 14,
+    marginBottom: 95,
+  },
+  ingredients: {
+    display: "flex",
+    width: "100%",
+    flex: 1,
+  },
+  doIt: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  ingList: {
+    marginTop: 35,
+    marginBottom: 25,
+  },
+  ingName: {
+    fontWeight: "bold",
+    marginLeft: 40,
+    fontSize: 15,
+    textTransform: "capitalize",
+  },
+  ingInfo: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+  },
+  qty: {
+    fontWeight: "bold",
+    fontSize: 13,
+    color: "rgb(209, 201, 201)",
+    position: "absolute",
+    right: 0,
+  },
+  ingImage: {
+    width: 20,
+    height: 20,
+    marginRight: 20,
+  },
+  item: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingBottom: 20,
+    width: "100%",
+    position: "relative",
+  },
   meal: {
     padding: 45,
     marginTop: -40,
