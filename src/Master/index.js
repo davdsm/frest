@@ -37,7 +37,7 @@ export const Master = ({ navigation }) => {
   }, []);
 
   return (
-    <Layout navigation={navigation}>
+    <Layout navigation={navigation} main>
       {Cats.length > 0 && Name.length > 0 && Fridge.length > 0 && (
         <>
           <Text style={styles.title}>Olá {Name}! 👋</Text>

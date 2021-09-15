@@ -29,12 +29,16 @@ const checkLogin = async (navigation) => {
   }
 };
 
-export const Layout = ({ children, navigation, layout, mealId }) => {
+export const Layout = ({ children, navigation, layout, mealId, main }) => {
   // check login
   checkLogin(navigation);
 
   return (
-    <ScrollView style={styles.layout} horizontal={false} verticak={true}>
+    <ScrollView
+      style={main ? styles.layoutP : styles.layout}
+      horizontal={false}
+      vertical={true}
+    >
       <View style={styles.header}>
         {layout !== "minimal" && (
           <Entrance>
@@ -61,11 +65,17 @@ export const Layout = ({ children, navigation, layout, mealId }) => {
 
 const styles = StyleSheet.create({
   layout: {
-    paddingTop: StatusBar.currentHeight,
     height: "100%",
     backgroundColor: "#fff",
     flex: 1,
     paddingTop: 80,
+  },
+  layoutP: {
+    height: "100%",
+    backgroundColor: "#fff",
+    flex: 1,
+    paddingTop: 80,
+    marginBottom: 50,
   },
   logo: {
     width: 105,

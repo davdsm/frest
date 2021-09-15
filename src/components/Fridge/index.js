@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     color: "#00a0df",
     position: "relative",
-    height: "100%",
+   /*  height: "100%", */
     width: "100%",
     marginBottom: 150,
   },

@@ -20,6 +20,7 @@ const windowWidth = Dimensions.get("window").width - 90;
 export const Meal = ({ navigation, route }) => {
   const { mealId } = route.params;
   const [MealInfo, setMealInfo] = useState(false);
+  const [ModalImage, setModalImage] = useState(false);
 
   useEffect(() => {
     if (!MealInfo) {
@@ -66,6 +67,26 @@ export const Meal = ({ navigation, route }) => {
     <>
       {MealInfo && (
         <Layout navigation={navigation} layout="minimal" mealId={mealId}>
+          {ModalImage && (
+            <View style={styles.modal}>
+              <TouchableOpacity
+                style={styles.cortin}
+                onPress={() => setModalImage(false)}
+              ></TouchableOpacity>
+              <Entrance>
+                <View style={styles.whiteSquare}>
+                  <Image
+                    style={styles.modalImage}
+                    imageStyle={{ borderRadius: 6 }}
+                    source={{
+                      uri: ModalImage,
+                    }}
+                  />
+                </View>
+              </Entrance>
+            </View>
+          )}
+
           <View style={styles.meal}>
             <View style={styles.tags}>
               <Entrance>
@@ -109,24 +130,34 @@ export const Meal = ({ navigation, route }) => {
             </View>
 
             <View style={styles.ingredients}>
-              <ScrollView horizontal={true} style={{ width: "100%", flex: 1 }}>
+              <ScrollView horizontal={true} style={styles.ingredients}>
                 <FlatList
-                  contentContainerStyle={{ width: "100%", flex: 1 }}
+                  contentContainerStyle={{ width: "100%" }}
                   data={getIngredients("info")}
+                  keyExtractor={(item) => item.id.toString()}
                   style={styles.ingList}
                   renderItem={({ item }) => (
-                    <View style={styles.item} key={item.id}>
-                      <Image
-                        style={styles.ingImage}
-                        source={{
-                          uri: `https://www.themealdb.com/images/ingredients/${item.ing}-Small.png`,
-                        }}
-                      />
-                      <Text style={styles.ingInfo}>
-                        <Text style={styles.ingName}>{item.ing}</Text>
-                        <Text style={styles.qty}>{item.dose}</Text>
-                      </Text>
-                    </View>
+                    <TouchableOpacity
+                      onPress={() =>
+                        setModalImage(
+                          `https://www.themealdb.com/images/ingredients/${item.ing}.png`
+                        )
+                      }
+                    >
+                      <View style={styles.item} key={`${item.id}`}>
+                        <Image
+                          style={styles.ingImage}
+                          source={{
+                            uri: `https://www.themealdb.com/images/ingredients/${item.ing}-Small.png`,
+                          }}
+                        />
+
+                        <Text style={styles.ingInfo}>
+                          <Text style={styles.ingName}>{item.ing}</Text>
+                          <Text style={styles.qty}>{item.dose}</Text>
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
                   )}
                 />
               </ScrollView>
@@ -147,15 +178,48 @@ export const Meal = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
+  modal: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    zIndex: 999,
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+  },
+  cortin: {
+    width: "100%",
+    height: "100%",
+    top: 0,
+    zIndex: 1,
+    position: "absolute",
+  },
+  modalImage: {
+    width: 300,
+    height: 300,
+    zIndex: 2,
+  },
+  whiteSquare: {
+    width: 400,
+    height: 400,
+    zIndex: 9999,
+    backgroundColor: "#ffffff",
+    opacity: 1,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 370,
+  },
   mainMealInfo: {
     marginTop: 20,
     fontSize: 14,
     marginBottom: 95,
   },
   ingredients: {
-    display: "flex",
     width: "100%",
-    flex: 1,
+    flexDirection: "column",
   },
   doIt: {
     display: "flex",
@@ -166,25 +230,27 @@ const styles = StyleSheet.create({
   ingList: {
     marginTop: 35,
     marginBottom: 25,
+    width: "100%",
   },
   ingName: {
     fontWeight: "bold",
     marginLeft: 40,
     fontSize: 15,
     textTransform: "capitalize",
+    marginRight: 40,
+    flexGrow: 1,
   },
   ingInfo: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
     width: "100%",
+    flexDirection: "column",
+    flex: 1,
   },
   qty: {
     fontWeight: "bold",
     fontSize: 13,
     color: "rgb(209, 201, 201)",
-    position: "absolute",
-    right: 0,
+    paddingLeft: 50,
+    flexGrow: 2,
   },
   ingImage: {
     width: 20,
@@ -192,9 +258,7 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   item: {
-    display: "flex",
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "space-between",
     paddingBottom: 20,
     width: "100%",
