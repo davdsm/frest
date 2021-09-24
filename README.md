@@ -1,2 +1,2 @@
 # frest
-Automated Smart Agent to Smart Fridges
+Automated Smart Agent for Smart Fridges
