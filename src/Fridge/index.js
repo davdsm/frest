@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, ScrollView, Dimensions } from "react-native";
 import Layout from "../components/Layout";
 import Entrance from "../components/Entrance";
-import { getFridge, getIngredients } from "../redux/actions";
+import { getFridge, getIngredients, setFridge } from "../redux/actions";
 import { Fridge as FridgeComponent } from "../components/Fridge";
 import Ingredient from "../components/Ingredient";
 
@@ -23,6 +23,10 @@ export const Fridge = ({ navigation }) => {
     alert("save");
   };
 
+  const removeIngredient = () => {
+    
+  }
+
   const handleSets = async (v) => {
     let list = [];
 
@@ -35,6 +39,8 @@ export const Fridge = ({ navigation }) => {
 
     setFridgeList(list);
   };
+
+  console.log(Ingredients)
 
   return (
     <Layout navigation={navigation} main>
@@ -57,9 +63,9 @@ export const Fridge = ({ navigation }) => {
         {FridgeList.length > 0 &&
           FridgeList.map((item, i) => (
             <Ingredient
-              active
+              active={true}
               onSelect={() => console.log("oh yeah")}
-              item={item}
+              item={item[0]}
               key={i}
             />
           ))}
